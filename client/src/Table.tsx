@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScrollArea, TextInput } from '@mantine/core';
+import { Box, TextInput } from "@mantine/core";
 import { DataTable } from 'mantine-datatable';
 import 'mantine-datatable/styles.layer.css';
 import { useColors } from "./hooks/use-colors.ts";
@@ -11,7 +11,7 @@ export const Table = () => {
   const [search, setSearch] = useState('');
 
   const { data, isLoading } = useColors({page, pageSize, search})
-  console.log('Data received:', data);
+
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const Table = () => {
   }, [page, pageSize, queryClient, search])
 
   return (
-    <ScrollArea>
+    <Box>
       <DataTable
         columns={[
           { accessor: 'id', title: 'ID', width: 100},
@@ -41,14 +41,14 @@ export const Table = () => {
           { accessor: 'c_hex', title: 'HEX', width: 300, },
           { accessor: 'c_rgb', title: 'RGB', width: 300, },
         ]}
-        records={data}
+        records={data?.data}
         withTableBorder
         withColumnBorders
         striped
         highlightOnHover
-        width="800"
         page={page}
         recordsPerPage={pageSize}
+        totalRecords={data?.total}
         onPageChange={(p) => setPage(p)}
         recordsPerPageOptions={[5, 10, 20]}
         recordsPerPageLabel="Кол-во записей"
@@ -56,6 +56,6 @@ export const Table = () => {
         onRecordsPerPageChange={setPageSize}
         fetching={isLoading}
       />
-    </ScrollArea>
+    </Box>
   );
 };

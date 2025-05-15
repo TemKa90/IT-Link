@@ -50,7 +50,7 @@ export class ColorsService {
     skip: number;
     take: number;
     search?: string;
-  }): Promise<Color[]> {
+  }): Promise<{data: Color[], total: number}> {
     const query = this.colorsRepository
       .createQueryBuilder('color')
       .orderBy('color.id', 'ASC')
@@ -63,7 +63,9 @@ export class ColorsService {
       });
     }
 
-    return query.getMany();
+    const [data, total] = await query.getManyAndCount();
+
+    return { data, total };
   }
 
   async findOneById(id: number): Promise<Color> {

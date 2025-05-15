@@ -12,7 +12,6 @@
 ## Предварительные требования
 Для запуска этого проекта вам потребуется установить:
 - Docker
-- Docker Compose
 
 ## Установка
 1. Клонируйте репозиторий вашего проекта:
@@ -22,16 +21,19 @@ cd IT-Link
 ```
 2. Создайте файл `.env` в корневой директории проекта:
 ```env
-# PostgreSQL
+NODE_ENV=development
+DB_TYPE=postgres
+DB_HOST=localhost
+DB_PORT=5432
 DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
 DB_NAME=your_db_name
-DB_PORT=5432
 
 # NestJS
 APP_PORT=3000
+
 ```
-Замените your_db_user, your_db_password и your_db_name на реальные значения.
+Замените your_db_user, your_db_password и your_db_name на ваши значения.
 
 ## Запуск проекта
 ```bash
